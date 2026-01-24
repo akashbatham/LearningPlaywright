@@ -3,7 +3,7 @@ import{test,Page,expect,Frame} from '@playwright/test'
 test('frameOne', async({page})=> {
     await page.goto('https://ui.vision/demo/webtest/frames/');
     const myFrames:Frame[] = page.frames(); //will return an array of all the frames attached to the page
-    console.log(myFrames.length);
+    console.log(myFrames.length); 
     for(let i=0; i < myFrames.length;i++){
         console.log(myFrames);
     }
@@ -28,4 +28,4 @@ test.only('inner frame second approach', async({page})=> {
     const innerframe = frame3.frameLocator('iframe[src="https://docs.google.com/forms/d/1yfUq-GO9BEssafd6TvHhf0D6QLDVG3q5InwNE2FFFFQ/viewform?embedded=true"]');
     console.log(await innerframe.locator('[class="F9yp7e ikZYwf LgNcQe"]').innerText());
     
-})
+})  
