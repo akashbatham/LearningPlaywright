@@ -1,6 +1,7 @@
-import {test,expect} from '@playwright/test'
+import {test,expect} from '@playwright/test';
 //import {randomUUID} from 'crypto' //Used to generate ANYTHING randomly
 import {faker} from '@faker-js/faker';
+import fs from 'fs';
 
 test('download files', async({page})=>{
     await page.goto('https://demo.automationtesting.in/FileDownload.html');
@@ -31,6 +32,7 @@ test('download files', async({page})=>{
 
     //This will create a downloads folder inside project folder but will generate a random file name everytime
     const dwnldpath = 'downloads/'+filenam;
+    console.log(dwnldpath);
 
     //This will download the file directly to your mentioned folder in system
     const syspath = 'C:/Users/Softprodigy/Downloads/'+filenam;
@@ -38,6 +40,13 @@ test('download files', async({page})=>{
     
     //downloading the file to downloadpath
     await download.saveAs(dwnldpath);
+
+    expect(fs.existsSync(dwnldpath));
+
+    //To check if the file exists
+    if(fs.existsSync(dwnldpath)){
+    fs.unlinkSync(dwnldpath);   //This will delete the file in the download path
+    }
 
     await page.waitForTimeout(4000);
 })
