@@ -8,6 +8,30 @@ import{test,expect,Page,chromium, firefox, webkit} from '@playwright/test'
 //Context --> Multiple contexts for multiple users/apps for same browser
 //Pages --> Tab, window or popup
 
+
+test.only('Making COntext user friendly', async()=>{
+    
+    const chromeB = await chromium.launch({headless:false});
+    const chromecontext = await chromeB.newContext(
+        {
+            //Separate the values using ',' not ';' because these are properties
+            viewport: {width: 720, height:1080}, //this will fix the browser dimensions for this specific test 
+            locale: 'en-US', //this will change the default language of the browser to english-US
+            
+            //Sending request through proxy server
+            //If there are proxy in between CLient and Server, then we'll use the proxy URL for security
+            //proxy:{server:'http://myproxy.com:3245'},//SERVER URL with PORT NUMBER
+            ignoreHTTPSErrors:true,
+
+        }
+    );
+    const page = await chromecontext.newPage();
+    await page.goto("https://expired.badssl.com");
+    console.log('Page Title: ', await page.title());
+
+})
+
+
 test('browser context',async() => {
     //You can avoid this step if write {browser} in async
     const chromer = await chromium.launch(); //To create the chrome browser
@@ -97,7 +121,7 @@ test('handling multiple wirndows', async({context})=> {
 
 })
 
-test.only('basic auth',async({browser})=>{
+test('basic auth',async({browser})=>{
     //const context = await browser.newContext();
     //Approach ONE - version ONE(most preferred) - pass the username and password in context
     const context = await browser.newContext({

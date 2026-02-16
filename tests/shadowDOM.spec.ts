@@ -16,5 +16,15 @@ test('shadow DOM', async({page})=>{
         await fram.locator('input[id="pizza"]').fill('lapinozzzz');
     }
     
+// YOU CAN ACCESS THE ELEMENT IN SHADOW DOM (OPEN) DIRECTLY USING CSS SELECTOR
+// BUT YOU CANNOT ACCESS THE ELEMENT INSIDE SHADOW DOM (CLOSED)
+// to access these elements you can use MOUSE ACTIONS, KEYBOARD ACTIONS, ARIA LOCATORS
 
+    //ACCESSING CLOSED SHADOW DOM ELEMENT
+    // if (fram){
+    //     console.log("enterring 2nd if");
+    //     await expect(fram.locator('#concepts')).toHaveAccessibleName(/learn from here/i);
+    //     console.log("link clicked");
+    // }
+            
 })
